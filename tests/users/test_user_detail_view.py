@@ -202,7 +202,7 @@ class UserDetailViewsTest(APITestCase):
             "email": "lucira_buster_5000@kenziebuster.com",
             "first_name": "Lucira5000",
             "last_name": "Buster5000",
-            "password": "lucira1234!@@@3"
+            "password": "lucira1234!@@@3",
         }
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.access_token_1)
         response = self.client.patch(self.BASE_URL, data=info_to_patch, format="json")
@@ -232,7 +232,7 @@ class UserDetailViewsTest(APITestCase):
         )
         self.assertDictEqual(expected_data, resulted_data, msg)
 
-        user = User.objects.last()
+        user = User.objects.get(id=resulted_data["id"])
         msg = (
             f"Verifique se a senha está sendo atualizada no {response.request['REQUEST_METHOD']} em "
             + f"em `{self.BASE_URL}`"

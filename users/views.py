@@ -43,7 +43,9 @@ class UserDetailView(APIView):
 
         self.check_object_permissions(request, user)
 
-        serializer = UserSerializer(user, data=request.data, partial=True)
+        serializer = UserSerializer(
+            user, data=request.data, context={"request": request}, partial=True
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
